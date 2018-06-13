@@ -150,9 +150,10 @@ class Class(Block):
                 returns='Lorg/python/types/Module;'
             ),
             JavaOpcodes.POP(),
+            # Set the module name
+            python.Str(self.module.full_name),
         )
 
-        self.module.get_name_string()
         self.store_name('__module__')
 
         self.add_opcodes(
