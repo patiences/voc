@@ -19,14 +19,6 @@ class IfElifElseTests(TranspileTestCase):
 
     def test_if_else(self):
         self.assertCodeExecution("""
-            x = 1
-            if x < 5:
-                print('Small x')
-            else:
-                print('Large x')
-            """)
-
-        self.assertCodeExecution("""
             x = 10
             if x < 5:
                 print('Small x')

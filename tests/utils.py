@@ -567,6 +567,8 @@ class TranspileTestCase(TestCase):
 
         transpiler.write(self.temp_dir)
 
+        print("Line 553!")
+
         if args is None:
             args = []
 
@@ -599,6 +601,8 @@ class TranspileTestCase(TestCase):
                 cwd=self.temp_dir
             )
             out = proc.communicate()[0].decode('utf8')
+
+        print(out)
 
         return out
 

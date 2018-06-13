@@ -1120,6 +1120,7 @@ public class Object extends java.lang.RuntimeException implements org.python.Obj
 
         org.python.Object[] args = new org.python.Object[1];
         args[0] = y;
+        //System.out.println("Invoking from Object.java 1123");
         return (org.python.Object) ((org.python.types.Method) comparator).invoke(args, null);
     }
 

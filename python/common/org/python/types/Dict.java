@@ -260,6 +260,7 @@ public class Dict extends org.python.types.Object {
             args = {"item"}
     )
     public org.python.Object __getitem__(org.python.Object item) {
+        //System.out.println("Item: " + item);
         try {
             // While hashcode is not used, it is not a redundant line.
             // We are determining if the item is hashable by seeing if an

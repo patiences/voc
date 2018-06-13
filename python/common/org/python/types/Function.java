@@ -349,6 +349,8 @@ public class Function extends org.python.types.Object implements org.python.Call
 
     public org.python.Object invoke(org.python.Object instance, org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         try {
+            //System.out.println("Method: " + this.method.getName());
+            //System.out.println("Invoking function: " + instance + "." + this.name + "(" + args + ")");
             // org.Python.debug("Function:", this.name);
             // org.Python.debug("       instance: ", instance);
             // for (org.python.Object arg: args) {
@@ -394,11 +396,12 @@ public class Function extends org.python.types.Object implements org.python.Call
         } catch (java.lang.IllegalAccessException iae) {
             throw new org.python.exceptions.RuntimeError(iae.toString());
         } catch (java.lang.reflect.InvocationTargetException e) {
+            System.out.println("Invocation Target Exeption from " + this.name + "!");
             try {
-                // org.Python.debug("Exception:", e.getTargetException());
-                // for (java.lang.StackTraceElement ste: e.getTargetException().getStackTrace()) {
-                //     org.Python.debug("     ", ste);
-                // }
+                 org.Python.debug("Exception:", e.getTargetException());
+                 for (java.lang.StackTraceElement ste: e.getTargetException().getStackTrace()) {
+                     org.Python.debug("     ", ste);
+                 }
 
                 // If the Java method raised an Python exception, re-raise that
                 // exception as-is. If it wasn"t a Python exception, wrap it
@@ -409,6 +412,7 @@ public class Function extends org.python.types.Object implements org.python.Call
                 if (message == null) {
                     message = e.getCause().getClass().getName();
                 }
+                System.out.println("Throwing exception!" + e.getCause().getMessage());
                 throw new org.python.exceptions.RuntimeError(message);
             }
         // } finally {
