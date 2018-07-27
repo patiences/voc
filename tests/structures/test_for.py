@@ -156,3 +156,17 @@ class ForLoopTests(TranspileTestCase):
 
             process(data)
             """)
+
+    @expectedFailure
+    def test_expression_statement_in_loop(self):
+        self.assertCodeExecution("""
+            for i in range(10):
+                'abc' == 'def'
+
+            x = ['a', 'b', 'c']
+            for i in range(10):
+                x[0]
+
+            for i in range(10):
+                3 + 5
+        """)

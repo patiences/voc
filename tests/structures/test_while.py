@@ -1,3 +1,4 @@
+from unittest import expectedFailure
 
 from ..utils import TranspileTestCase
 
@@ -110,3 +111,21 @@ class WhileLoopTests(TranspileTestCase):
             finally:
                 print("Done")
             """)
+
+    @expectedFailure
+    def test_expression_statement_in_while(self):
+        self.assertCodeExecution("""
+            i = 1
+            j = 4
+
+            while i < j:
+                i = i + 1
+                'abc' == 'def'
+
+            x = ['a', 'b', 'c']
+            while i < j:
+                x[0]
+
+            while i < j:
+                3 + 5
+        """)

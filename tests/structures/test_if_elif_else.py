@@ -1,3 +1,5 @@
+from unittest import expectedFailure
+
 from ..utils import TranspileTestCase
 
 
@@ -281,3 +283,23 @@ class IfElifElseTests(TranspileTestCase):
                 else:
                     y = 37
             """, run_in_function=False)
+
+    @expectedFailure
+    def test_expression_statement_in_if_else(self):
+        self.assertCodeExecution("""
+            if True:
+                print("true")
+            else:
+                'abc' == 'def'
+
+            x = ['a', 'b', 'c']
+            if False:
+                x[0]
+            else:
+                print("true")
+
+            if True:
+                3 + 5
+            else:
+                print("not true")
+        """)
