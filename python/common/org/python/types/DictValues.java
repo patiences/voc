@@ -31,6 +31,7 @@ public class DictValues extends org.python.types.Object {
     }
 
     DictValues(org.python.types.Dict dict) {
+        super(false);
         this.value = dict.value.values();
     }
 

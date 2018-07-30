@@ -27,12 +27,12 @@ public class Set extends org.python.types.Object {
     }
 
     public Set() {
-        super();
+        super(false);
         this.value = new java.util.HashSet<org.python.Object>();
     }
 
     public Set(java.util.Set<org.python.Object> set) {
-        super();
+        super(false);
         this.value = set;
     }
 
