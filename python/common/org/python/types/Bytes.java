@@ -22,12 +22,12 @@ public class Bytes extends org.python.types.Object {
     }
 
     public Bytes(byte[] value) {
-        super(false);
+        super();
         this.value = Arrays.copyOf(value, value.length);
     }
 
     public Bytes(java.lang.String value) {
-        super(false);
+        super();
         try {
             this.value = value.getBytes("ISO-8859-1");
         } catch (java.io.UnsupportedEncodingException e) {

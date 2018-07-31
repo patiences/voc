@@ -27,12 +27,12 @@ public class Dict extends org.python.types.Object {
     }
 
     public Dict() {
-        super(false);
+        super();
         this.value = new java.util.HashMap<org.python.Object, org.python.Object>();
     }
 
     public Dict(java.util.Map<org.python.Object, org.python.Object> dict) {
-        super(false);
+        super();
         this.value = dict;
     }
 

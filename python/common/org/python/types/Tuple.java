@@ -22,12 +22,12 @@ public class Tuple extends org.python.types.Object {
     }
 
     public Tuple() {
-        super(false);
+        super();
         this.value = new java.util.ArrayList<org.python.Object>();
     }
 
     public Tuple(java.util.List<org.python.Object> tuple) {
-        super(false);
+        super();
         this.value = tuple;
     }
 

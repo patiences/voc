@@ -22,17 +22,17 @@ public class FrozenSet extends org.python.types.Object {
     }
 
     public FrozenSet() {
-        super(false);
+        super();
         this.value = java.util.Collections.emptySet();
     }
 
     public FrozenSet(java.util.Set<org.python.Object> frozenSet) {
-        super(false);
+        super();
         this.value = java.util.Collections.unmodifiableSet(frozenSet);
     }
 
     public FrozenSet(org.python.types.Set set) {
-        super(false);
+        super();
         this.value = java.util.Collections.unmodifiableSet(set.value);
     }
 

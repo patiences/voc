@@ -32,12 +32,12 @@ public class List extends org.python.types.Object {
     }
 
     public List() {
-        super(false);
+        super();
         this.value = new java.util.ArrayList<org.python.Object>();
     }
 
     public List(java.util.List<org.python.Object> list) {
-        super(false);
+        super();
         this.value = list;
     }
 
