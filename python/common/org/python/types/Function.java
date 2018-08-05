@@ -11,7 +11,7 @@ public class Function extends org.python.types.Object implements org.python.Call
     public static final int CO_GENERATOR = 0x20;
     public static final int CO_NOFREE = 0x40;
     org.python.types.Type.Origin origin;
-    org.python.types.Str name;
+    java.lang.String name;
     int co_argcount;
     int co_kwonlyargcount;
     int co_flags;
@@ -24,10 +24,8 @@ public class Function extends org.python.types.Object implements org.python.Call
     org.python.types.Closure closure;
 
     private void populateAttrs() {
-        this.__dict__.put("__name__", this.name);
-
         if (this.name != null) {
-            this.__dict__.put("__qualname__", this.name);
+            //this.__dict__.put("__qualname__", this.name);
         } else {
             org.python.Object co_name = this.co_consts;
             this.__dict__.put("__qualname__", co_name);
@@ -63,7 +61,7 @@ public class Function extends org.python.types.Object implements org.python.Call
             java.lang.String kwargs_name) {
         super();
         this.origin = org.python.types.Type.Origin.BUILTIN;
-        this.name = new org.python.types.Str(method.getName());
+        this.name = method.getName();
         this.method = method;
 
         // System.out.println("CREATE FUNCTION 1 " + this.name);
@@ -115,7 +113,7 @@ public class Function extends org.python.types.Object implements org.python.Call
 
     // Constructor for normal Python functions
     public Function(
-            org.python.types.Str name,
+            java.lang.String name,
             int co_argcount,
             int co_kwonlyargcount,
             int co_flags,
@@ -212,7 +210,7 @@ public class Function extends org.python.types.Object implements org.python.Call
     private void throwUnexpectedPositionalArgumentsError(int numExpected, int numGot) {
         String posArgs = numExpected + " positional argument" + (numExpected == 1 ? "" : "s");
         String givenArgs = numGot + (numGot == 1 ? " was given" : " were given");
-        String mesg = this.name.value + "() takes " + posArgs + " but " + givenArgs;
+        String mesg = this.name + "() takes " + posArgs + " but " + givenArgs;
         throw new org.python.exceptions.TypeError(mesg);
     }
 
