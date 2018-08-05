@@ -291,7 +291,18 @@ class Block(Accumulator):
             JavaOpcodes.LDC_W(function.code.co_flags),
         )
         self.add_tuple(function.code.co_consts)
-        self.add_list(function.code.co_varnames)
+
+        self.add_opcodes(
+            java.New('java/util/ArrayList'),
+            java.Init('java/util/ArrayList'),
+        )
+        for varname in function.code.co_varnames:
+            self.add_opcodes(
+                JavaOpcodes.DUP(),
+                JavaOpcodes.LDC_W(varname),
+                java.List.add(),
+            )
+
 
         self.add_opcodes(
                 # Get a Java Method representing the new function

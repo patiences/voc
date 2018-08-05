@@ -16,7 +16,7 @@ public class Function extends org.python.types.Object implements org.python.Call
     int co_kwonlyargcount;
     int co_flags;
     org.python.types.Tuple co_consts;
-    java.util.List<org.python.Object> co_varnames;
+    java.util.List<java.lang.String> co_varnames;
     java.lang.reflect.Method method;
     java.util.Map<java.lang.String, org.python.Object> globals;
     java.util.List<org.python.Object> default_args;
@@ -70,16 +70,16 @@ public class Function extends org.python.types.Object implements org.python.Call
         long flags = 0;
         long argcount = 0;
         long kwonly = 0;
-        java.util.List<org.python.Object> varnames = new java.util.ArrayList<org.python.Object>();
+        java.util.List<java.lang.String> varnames = new java.util.ArrayList<java.lang.String>();
 
         for (java.lang.String arg : args) {
-            varnames.add(new org.python.types.Str(arg));
+            varnames.add(arg);
         }
 
         this.default_args = new java.util.ArrayList<org.python.Object>();
         for (java.lang.String arg : default_args) {
             this.default_args.add(null);
-            varnames.add(new org.python.types.Str(arg));
+            varnames.add(arg);
         }
 
         // The base argument count is the length of the arguments collected so far.
@@ -87,18 +87,18 @@ public class Function extends org.python.types.Object implements org.python.Call
 
         if (vararg_name != null) {
             flags |= CO_VARARGS;
-            varnames.add(new org.python.types.Str(vararg_name));
+            varnames.add(vararg_name);
         }
 
         this.default_kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         for (java.lang.String arg : kwonlyargs) {
-            varnames.add(new org.python.types.Str(arg));
+            varnames.add(arg);
             this.default_kwargs.put(arg, null);
         }
 
         if (kwargs_name != null) {
             flags |= CO_VARKEYWORDS;
-            varnames.add(new org.python.types.Str(kwargs_name));
+            varnames.add(kwargs_name);
         }
 
         this.co_argcount = (int) argcount;
@@ -118,7 +118,7 @@ public class Function extends org.python.types.Object implements org.python.Call
             int co_kwonlyargcount,
             int co_flags,
             org.python.types.Tuple co_consts,
-            java.util.List<org.python.Object> co_varnames,
+            java.util.List<java.lang.String> co_varnames,
             java.lang.reflect.Method method,
             java.util.Map<java.lang.String, org.python.Object> globals,
             java.util.List<org.python.Object> default_args,
@@ -176,13 +176,13 @@ public class Function extends org.python.types.Object implements org.python.Call
         return org.python.types.Bool.TRUE;
     }
 
-    private void checkMissingArgs(int requiredArgs, int passedArgs, java.util.Map<java.lang.String, org.python.Object> kwargs, java.util.List<org.python.Object> varnames, int first_arg) {
+    private void checkMissingArgs(int requiredArgs, int passedArgs, java.util.Map<java.lang.String, org.python.Object> kwargs, java.util.List<java.lang.String> varnames, int first_arg) {
         int n_missing_pos_args = requiredArgs - passedArgs;
         java.util.List<String> missingArgs = new ArrayList<String>();
         if (n_missing_pos_args > 0) {
             // build list of actual missing args, checking if haven't been passed as kwargs
             for (int i = first_arg; i < n_missing_pos_args; i++) {
-                java.lang.String argname = ((String) varnames.get(i + passedArgs).toJava());
+                java.lang.String argname = varnames.get(i + passedArgs);
                 if (kwargs == null || !kwargs.containsKey(argname)) {
                     missingArgs.add(argname);
                 }
@@ -222,7 +222,7 @@ public class Function extends org.python.types.Object implements org.python.Call
         int argcount = this.co_argcount;
         int kwonlyargcount = this.co_kwonlyargcount;
         int flags = this.co_flags;
-        java.util.List<org.python.Object> varnames = this.co_varnames;
+        java.util.List<java.lang.String> varnames = this.co_varnames;
 
         int first_arg = 0;
         int has_varargs = 0;
@@ -281,7 +281,7 @@ public class Function extends org.python.types.Object implements org.python.Call
                 adjusted[i + first_arg] = args[i];
                 // System.out.println("   bARG " + (i + first_arg) + ": " + args[i]);
                 if (kwargs != null) {
-                    java.lang.String varname = ((org.python.types.Str) varnames.get(i)).value;
+                    java.lang.String varname = varnames.get(i);
                     org.python.Object value = kwargs.remove(varname);
                     if (value != null) {
                         throw new org.python.exceptions.TypeError(this.name + "() got multiple values for argument '" + varname + "'");
@@ -292,7 +292,7 @@ public class Function extends org.python.types.Object implements org.python.Call
                 // System.out.println("   c" + (i + first_arg));
                 org.python.Object value = null;
                 if (kwargs != null) {
-                    java.lang.String varname = ((org.python.types.Str) varnames.get(i + first_arg)).value;
+                    java.lang.String varname = varnames.get(i + first_arg);
                     value = kwargs.remove(varname);
                 }
                 if (value == null) {
@@ -322,7 +322,7 @@ public class Function extends org.python.types.Object implements org.python.Call
 
         // Populate the kwonly args
         for (int i = 0; i < kwonlyargcount; i++) {
-            java.lang.String varname = ((org.python.types.Str) varnames.get(argcount + has_varargs + i)).value;
+            java.lang.String varname = varnames.get(argcount + has_varargs + i);
             // System.out.println("   e" + (argcount + has_varargs + i) + " " + varname);
             org.python.Object value = (kwargs == null) ? null : kwargs.remove(varname);
             if (value == null) {
