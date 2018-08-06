@@ -284,8 +284,8 @@ class Block(Accumulator):
                 java.New('org/python/types/Function'),
         )
 
+        self.add_str(function.code.co_name)
         self.add_opcodes(
-            JavaOpcodes.LDC_W(function.code.co_name),
             JavaOpcodes.LDC_W(function.code.co_argcount),
             JavaOpcodes.LDC_W(function.code.co_kwonlyargcount),
             JavaOpcodes.LDC_W(function.code.co_flags),
@@ -368,7 +368,7 @@ class Block(Accumulator):
         self.add_opcodes(
                 java.Init(
                     'org/python/types/Function',
-                    'Ljava/lang/String;',
+                    'Lorg/python/types/Str;',
                     'I',
                     'I',
                     'I',
