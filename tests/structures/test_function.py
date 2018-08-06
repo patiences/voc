@@ -36,7 +36,6 @@ class FunctionTests(TranspileTestCase):
             print("value =", myfunc(5))
             """)
 
-    @expectedFailure
     def test_function_name_attribute(self):
         self.assertCodeExecution("""
             def myfunc():
